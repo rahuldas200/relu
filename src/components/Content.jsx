@@ -4,8 +4,20 @@ import like from "../assets/sidebar/heart.svg";
 import comment from "../assets/sidebar/comment.svg";
 import share from "../assets/sidebar/share.svg";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import star from '../assets/sidebar/star.svg'
 
 const Content = () => {
+
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 0; i < rating; i++) {
+      stars.push(
+       <img key={i} src={star} className="h-3 w-4" alt="img"/>
+      ); 
+    }
+    return stars;
+  };
+
   return (
     <div>
       {USER_POSTS.map((item) => (
@@ -54,22 +66,24 @@ const Content = () => {
           </div>
         </>
       ))}
-      <div className="max-w-[620px] overflow-x-auto p-4">
-        <div className="flex gap-5">
-          {MARKATING_DATA.map((data) => (
+      <div className="max-w-[620px] overflow-hidden p-4">
+        <div className="flex gap-2 h-[240px] w-[252px]">
+        {MARKATING_DATA.map((data) => (
             <div
               key={data.id}
-              className="flex-none w-[252px] h-[180px] p-4 rounded-lg border border-gray-200 shadow-md bg-white"
+              className="flex-none w-[252px] h-[180px] p-4 rounded-lg "
             >
               <img
                 src={data.thumbnail}
                 alt={data.title}
-                className="w-full h-auto rounded-md"
+                className=" rounded-md w-[252px] h-[180px]"
               />
               <h3 className="mt-2 text-[10px] font-semibold">{data.title}</h3>
               <div className="flex justify-between mt-1 text-gray-600">
                 <p className="text-2xl">${data.price}</p>
-                <p>{data.rating}</p>
+                <p className="flex gap-0.5 items-center">
+                  {renderStars(data.reting)}
+                </p>
               </div>
             </div>
           ))}
